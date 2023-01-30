@@ -10,6 +10,12 @@ background-color: #9b1fe9;
 .text-purple{
 color: #9b1fe9;
 }
+.text-gray-50{
+color: #686868;
+}
+.bg-blue-10{
+	background-color: #EEF2FE;
+}
 
 /* banner section style  */
 .logo{
@@ -22,5 +28,8 @@ color: #9b1fe9;
 	color: #9b1fe9;
 }
 .nav-icon{
-	width: 30px;
+	width: 25px;
+}
+.input-outline-none{
+	outline: none;
 }
