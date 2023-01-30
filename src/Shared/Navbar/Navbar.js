@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
-import "../../style.css"
-import WalletIcon from "../../assets/icons/wallet.png"
+import "../../style.css";
+import WalletIcon from "../../assets/icons/wallet.png";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  console.log(user)
+
   return (
     <nav className="bg-light py-3">
       <div className="container-xxl d-flex align-items-center justify-content-between  mx-auto">
@@ -20,7 +24,7 @@ const Navbar = () => {
             <img className="nav-icon" src={WalletIcon} alt="" />
             <span className="ms-2">Connect Wallet</span>
           </div>
-          <div class="dropdown">
+          <div className="dropdown">
             <div
               className="bg-gray p-2 cursor-pointer rounded-circle border-0"
               type="button"
@@ -31,21 +35,41 @@ const Navbar = () => {
               <FaRegUserCircle className="fs-3" />
             </div>
             <ul
-              class="dropdown-menu dropdown-menu-end mt-1 rounded-1 border-0"
+              className="dropdown-menu dropdown-menu-end mt-1 rounded-1 border-0"
               aria-labelledby="dropdownMenuButton1"
             >
+              {isAuthenticated ? (
+                <>
+                  <li
+                    onClick={() =>
+                      logout({
+                        logoutParams: { returnTo: window.location.origin },
+                      })
+                    }
+                    className="px-3 cursor-pointer py-1"
+                  >
+                    Log Out
+                  </li>
+                  <li>
+                    <Link to="/dashboard" className="dropdown-item" href="#">
+                      DashBoard
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li
+                    onClick={() => loginWithRedirect()}
+                    className="px-3 cursor-pointer py-1"
+                  >
+                    Log In
+                  </li>
+                  <li className="px-3 cursor-pointer py-1">Sign Up</li>
+                </>
+              )}
+
               <li>
-                <Link to="/login" class="dropdown-item" href="#">
-                  Log In
-                </Link>
-              </li>
-              <li>
-                <Link to="/register" class="dropdown-item" href="#">
-                  Sign Up
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" class="dropdown-item" href="#">
+                <Link to="/faq" className="dropdown-item" href="#">
                   FAQ
                 </Link>
               </li>

@@ -3,7 +3,6 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 // reCaptcha site key
 const siteKey = process.env.REACT_APP_apiKey;
-console.log(siteKey);
 
 const onChange = (value) => {
   console.log(value);

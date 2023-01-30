@@ -1,9 +1,9 @@
 import React from 'react';
 
-const EthTransaction = () => {
+const TestLinkTransaction = () => {
 	return (
-    <section>
-      <table class="table mb-0 table-bordered text-center">
+    <section >
+      <table className="table  mb-0 table-bordered text-center">
         <thead>
           <tr>
             <th scope="col">Sr</th>
@@ -15,27 +15,26 @@ const EthTransaction = () => {
         <tbody>
           <tr>
             <th scope="row">1</th>
-            <td>Mark</td>
+            <td>Nayon</td>
             <td>Otto</td>
             <td>@mdo</td>
           </tr>
           <tr>
             <th scope="row">2</th>
-            <td>Jacob</td>
+            <td>Himel</td>
             <td>Thornton</td>
             <td>@fat</td>
           </tr>
           <tr>
             <th scope="row">3</th>
-            <td>Jacob</td>
+            <td>Shitol</td>
             <td>Thornton</td>
             <td>@fat</td>
           </tr>
-          
         </tbody>
       </table>
     </section>
   );
 };
 
-export default EthTransaction;
+export default TestLinkTransaction;

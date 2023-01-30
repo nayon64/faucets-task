@@ -5,11 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.js";
+import { Auth0Provider } from '@auth0/auth0-react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Auth0Provider
+      domain="dev-wvd3ftxa6nktxukm.us.auth0.com"
+      clientId="HiEAseHZE4f4i2W1rRcX946jNkJzhwoj"
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
+      <App />
+    </Auth0Provider>
   </React.StrictMode>
 );
 
