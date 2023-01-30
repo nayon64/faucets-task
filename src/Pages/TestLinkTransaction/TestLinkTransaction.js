@@ -3,7 +3,7 @@ import React from 'react';
 const TestLinkTransaction = () => {
 	return (
     <section >
-      <table class="table  table-bordered text-center">
+      <table class="table  mb-0 table-bordered text-center">
         <thead>
           <tr>
             <th scope="col">Sr</th>

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../layout/Main/Main";
 import EthTransaction from "../../Pages/EthTransaction/EthTransaction";
+import FAQ from "../../Pages/FAQ/FAQ";
 import Home from "../../Pages/Home/Home/Home";
 import LogIn from "../../Pages/LogIn/LogIn";
 import Register from "../../Pages/Register/Register";
@@ -14,17 +15,13 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-      },
-      {
-        path: "/home",
-        element: <Home />,
         children: [
           {
-            path: "/home/history1",
+            path: "/",
             element: <EthTransaction />,
           },
           {
-            path: "/home/history2",
+            path: "/h2",
             element: <TestLinkTransaction />,
           },
         ],
@@ -37,6 +34,10 @@ const routes = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/faq",
+        element: <FAQ/>,
       },
     ],
   },

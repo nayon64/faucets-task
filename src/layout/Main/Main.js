@@ -5,12 +5,12 @@ import Navbar from '../../Shared/Navbar/Navbar';
 
 const Main = () => {
 	return (
-		<div>
-			<Navbar/>
-			<Outlet/>
-			<Footer/>
-		</div>
-	);
+    <div className="min-vh-100 d-flex flex-column justify-content-between bg-blue-10">
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </div>
+  );
 };
 
 export default Main;

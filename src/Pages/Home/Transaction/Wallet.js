@@ -1,43 +1,45 @@
 import React from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+
+// reCaptcha site key
+const siteKey = process.env.REACT_APP_apiKey;
+console.log(siteKey);
+
+const onChange = (value) => {
+  console.log(value);
+};
 
 const Wallet = () => {
   return (
     <section className="col-md-6">
       <form>
         <div className="mb-3 mt-2">
-          <label
-            for="exampleFormControlInput1"
-            className="form-label mb-1 text-purple fw-bold "
-          >
+          <label className="form-label mb-1 text-purple fw-bold ">
             Email address
           </label>
           <input
             type="text"
             className="d-block w-100 border p-2 rounded-1 input-outline-none"
-            id="exampleFormControlInput1"
             placeholder="Your Wallet Address..."
           />
         </div>
         <div className="mb-3 mt-2">
-          <label
-            for="exampleFormControlInput1"
-            className="form-label mb-1 text-purple fw-bold "
-          >
+          <label className="form-label mb-1 text-purple fw-bold ">
             Request Type
           </label>
-          <div class="row">
-            <div class="col">
+          <div className="row">
+            <div className="col">
               <input
-                class="form-control"
+                className="form-control"
                 type="text"
                 placeholder="20 Test Link"
                 aria-label="Disabled input example"
                 disabled
               />
             </div>
-            <div class="col">
+            <div className="col">
               <input
-                class="form-control"
+                className="form-control"
                 type="text"
                 placeholder="0.5 ETH"
                 aria-label="Disabled input example"
@@ -45,8 +47,13 @@ const Wallet = () => {
               />
             </div>
           </div>
-			  </div>
-			  <button className="bg-purple border-0 py-1 px-3 text-white rounded-1">Send Request</button>
+        </div>
+        <div className="my-3">
+          <ReCAPTCHA sitekey={siteKey} onChange={onChange} />
+        </div>
+        <button className="bg-purple border-0 py-1 px-3 text-white rounded-1">
+          Send Request
+        </button>
       </form>
     </section>
   );

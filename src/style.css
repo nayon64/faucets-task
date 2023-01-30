@@ -21,7 +21,7 @@ color: #686868;
 .logo{
 	text-decoration: none;
 	color: #9b1fe9;
-	font-size: 40px;
+	font-size: 30px;
 	font-weight: 600;
 }
 .logo:hover{
@@ -32,4 +32,7 @@ color: #686868;
 }
 .input-outline-none{
 	outline: none;
+}
+.list-style-none{
+	list-style: none;
 }
