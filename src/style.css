@@ -1,0 +1,26 @@
+.bg-gray{
+background-color: #dedede;
+}
+.cursor-pointer{
+	cursor: pointer;
+}
+.bg-purple{
+background-color: #9b1fe9;
+}
+.text-purple{
+color: #9b1fe9;
+}
+
+/* banner section style  */
+.logo{
+	text-decoration: none;
+	color: #9b1fe9;
+	font-size: 40px;
+	font-weight: 600;
+}
+.logo:hover{
+	color: #9b1fe9;
+}
+.nav-icon{
+	width: 30px;
+}
