@@ -30,6 +30,9 @@ color: #686868;
 .nav-icon{
 	width: 25px;
 }
+.nav-icon-sm{
+	width: 20px;
+}
 .input-outline-none{
 	outline: none;
 }

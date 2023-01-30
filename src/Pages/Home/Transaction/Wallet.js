@@ -14,7 +14,7 @@ const Wallet = () => {
       <form>
         <div className="mb-3 mt-2">
           <label className="form-label mb-1 text-purple fw-bold ">
-            Email address
+            Wallet address
           </label>
           <input
             type="text"
