@@ -1,22 +1,28 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
-import "../../style.css";
+import { Link, useNavigate } from "react-router-dom";
 import WalletIcon from "../../assets/icons/wallet.png";
-import { useAuth0 } from "@auth0/auth0-react";
 import Modal from "../../Componets/Modal/Modal";
+import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import { DataContext } from "../../Context/DataProvider/DataProvider";
+import "../../style.css";
+import { supabase } from "../../client";
 
 const Navbar = () => {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
-  console.log(user)
   const { currencies, currency, setCurrency } = useContext(DataContext);
-  console.log()
+  const { user,setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleCurrency = (value) => {
-    console.log(value)
-    setCurrency(value)
-  }
+    setCurrency(value);
+  };
+
+  const handleLogOut = async () => {
+    localStorage.removeItem("user");
+    const { error } = await supabase.auth.signOut();
+    setUser(false)
+    navigate("/");
+  };
 
   return (
     <nav className="bg-light py-3">
@@ -25,10 +31,6 @@ const Navbar = () => {
           Faucets
         </Link>
         <div className="d-flex ">
-          {/* <div className="border px-4 me-3 d-flex align-items-center justify-content-center h-full cursor-pointer">
-            <img className="nav-icon" src={WalletIcon} alt="" />
-            <span className="ms-2">Connect Wallet</span>
-          </div> */}
           <div className="dropdown">
             <div
               className="border px-3 px-md-4 me-3 d-flex align-items-center justify-content-center h-100 cursor-pointer"
@@ -81,17 +83,13 @@ const Navbar = () => {
               className="dropdown-menu dropdown-menu-end mt-1 rounded-1 border-0"
               aria-labelledby="dropdownMenuButton1"
             >
-              {isAuthenticated ? (
+              {user ? (
                 <>
                   <li
-                    onClick={() =>
-                      logout({
-                        logoutParams: { returnTo: window.location.origin },
-                      })
-                    }
+                    onClick={handleLogOut}
                     className="px-3 cursor-pointer py-1"
                   >
-                    Log Out
+                    LogOut
                   </li>
                   <li>
                     <Link to="/dashboard" className="dropdown-item" href="#">
@@ -101,13 +99,16 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <li
-                    onClick={() => loginWithRedirect()}
-                    className="px-3 cursor-pointer py-1"
-                  >
-                    Log In
+                  <li>
+                    <Link to="/login" className="dropdown-item" href="#">
+                      Log In
+                    </Link>
                   </li>
-                  <li className="px-3 cursor-pointer py-1">Sign Up</li>
+                  <li>
+                    <Link to="/register" className="dropdown-item" href="#">
+                      Sign Up
+                    </Link>
+                  </li>
                 </>
               )}
 

@@ -5,6 +5,8 @@ import FAQ from "../../Pages/FAQ/FAQ";
 import Home from "../../Pages/Home/Home/Home";
 import TestLinkTransaction from "../../Pages/Home/Transaction/RequestHistory/TestLinkTransaction/TestLinkTransaction";
 import DashBoard from "../../Pages/DashBoard/DashBoard";
+import LogIn from "../../Pages/LogIn/LogIn";
+import Register from "../../Pages/Register/Register";
 
 const routes = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const routes = createBrowserRouter([
       {
         path: "/faq",
         element: <FAQ/>,
+      },
+      {
+        path: "/login",
+        element: <LogIn/>,
+      },
+      {
+        path: "/register",
+        element: <Register/>,
       },
       {
         path: "/dashboard",

@@ -5,23 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.js";
-import { Auth0Provider } from '@auth0/auth0-react';
 import DataProvider from './Context/DataProvider/DataProvider';
+import { Toaster } from 'react-hot-toast';
+import AuthProvider from './Context/AuthProvider/AuthProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Auth0Provider
-      domain="dev-wvd3ftxa6nktxukm.us.auth0.com"
-      clientId="HiEAseHZE4f4i2W1rRcX946jNkJzhwoj"
-      authorizationParams={{
-        redirect_uri: window.location.origin,
-      }}
-    >
+    <AuthProvider>
       <DataProvider>
         <App />
+        <Toaster position="top-center" />
       </DataProvider>
-    </Auth0Provider>
+    </AuthProvider>
   </React.StrictMode>
 );
 
