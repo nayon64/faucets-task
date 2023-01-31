@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import WalletIcon from "../../assets/icons/wallet.png";
@@ -7,11 +7,22 @@ import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import { DataContext } from "../../Context/DataProvider/DataProvider";
 import "../../style.css";
 import { supabase } from "../../client";
+import useAdmin from "../../Hooks/useAdmin/useAdmin";
 
 const Navbar = () => {
+  const [userEmail,setUserEmail]=useState()
   const { currencies, currency, setCurrency } = useContext(DataContext);
-  const { user,setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+  const [isAdmin]=useAdmin(userEmail)
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const email = user?.user?.email;
+    setUserEmail(email)
+;
+  },[user])
+
 
   const handleCurrency = (value) => {
     setCurrency(value);
@@ -91,11 +102,11 @@ const Navbar = () => {
                   >
                     LogOut
                   </li>
-                  <li>
+                  {isAdmin && <li>
                     <Link to="/dashboard" className="dropdown-item" href="#">
                       DashBoard
                     </Link>
-                  </li>
+                  </li>}
                 </>
               ) : (
                 <>

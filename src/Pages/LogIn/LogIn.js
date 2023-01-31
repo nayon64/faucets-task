@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { FaFacebook, FaGoogle, FaInstagram } from "react-icons/fa";
@@ -7,7 +7,9 @@ import { supabase } from "../../client";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 
 const LogIn = () => {
+  
   const { setUser } = useContext(AuthContext);
+  
   const {
     register,
     reset,
@@ -15,7 +17,8 @@ const LogIn = () => {
     formState: { errors },
   } = useForm();
 
-  const navigate=useNavigate()
+  const navigate = useNavigate()
+  
 
   const handleSingIn = async (fromValue) => {
     try {
