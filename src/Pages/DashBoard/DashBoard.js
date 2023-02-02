@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 const DashBoard = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/users").then((res) => {
+    axios.get("https://faucets-task-server.vercel.app/users").then((res) => {
       setUsers(res.data);
     });
   }, []);

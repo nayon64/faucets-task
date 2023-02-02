@@ -39,3 +39,8 @@ color: #686868;
 .list-style-none{
 	list-style: none;
 }
+
+.disable{
+	background-color: #bb57f9;
+	color: white;
+}

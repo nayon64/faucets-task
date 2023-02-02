@@ -1,15 +1,14 @@
 import React, { useContext} from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { FaFacebook, FaGoogle, FaInstagram } from "react-icons/fa";
+import { FaGithub, FaGoogle, FaInstagram } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../../client";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 
 const LogIn = () => {
-  
-  const { setUser } = useContext(AuthContext);
-  
+  const { setUser, setPageLoad } = useContext(AuthContext);
+
   const {
     register,
     reset,
@@ -17,28 +16,63 @@ const LogIn = () => {
     formState: { errors },
   } = useForm();
 
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
 
+  // handle email and password login
   const handleSingIn = async (fromValue) => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: fromValue.email,
         password: fromValue.password,
       });
-
-      console.log(data)
-      console.error(error)
+      console.log(data);
+      console.error(error);
       if (data.user) {
         toast.success("successfully Login");
-        setUser(data)
-        reset()
-        navigate("/")
+        setUser(data);
+        reset();
+        navigate("/");
+      } else {
+        toast.error("User does not match!");
       }
-      else {
-        toast.error("User does not match!")
+    } catch (error) {
+      // toast.error(error);
+    }
+  };
+
+  // handle google login
+  const googleLogin = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+      });
+      console.log(data);
+      if (data) {
+        localStorage.setItem("user1", JSON.stringify(data?.user));
+        console.log(data);
+        setPageLoad(true);
+      } else {
+        toast.error(error);
       }
-      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // handle githup login
+  const gitHubLogin = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "github",
+      });
+      if (data) {
+        localStorage.setItem("user2", JSON.stringify(data?.user));
+        console.log(data);
+        toast.success("LogIn Successfull!");
+        //  navigate("/");
+      } else {
+        console.log(error);
+      }
     } catch (error) {
       toast.error(error);
     }
@@ -93,8 +127,8 @@ const LogIn = () => {
         </div>
         <p className="text-center fw-bold">Or</p>
         <div className="col-4 col-sm-3 mx-auto d-flex justify-content-around">
-          <FaGoogle className="fs-5 cursor-pointer" />
-          <FaFacebook className="fs-5 cursor-pointer" />
+          <FaGoogle onClick={googleLogin} className="fs-5 cursor-pointer" />
+          <FaGithub onClick={gitHubLogin} className="fs-5 cursor-pointer" />
           <FaInstagram className="fs-5 cursor-pointer" />
         </div>
       </div>

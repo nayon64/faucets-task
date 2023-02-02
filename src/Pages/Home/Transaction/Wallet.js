@@ -1,27 +1,52 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 // reCaptcha site key
 const siteKey = process.env.REACT_APP_apiKey;
 
-const onChange = (value) => {
-  console.log(value);
-};
-
 const Wallet = () => {
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [reCaptchaValue, setReCaptchaValue] = useState(true);
+  const captchaRef= useRef()
+
+  // check recaptche 
+  const onChange = (value) => {
+    console.log(value);
+    setReCaptchaValue(false);
+  };
+
+  // handle amount submit 
+  const submit = (data) => {
+    console.log(data)
+    captchaRef.current.reset()
+    toast.success("successfull submit")
+    reset()
+  }
+
   return (
     <section className="col-md-6">
-      <form>
+      <form onSubmit={handleSubmit(submit)}>
         <div className="mb-3 mt-2">
           <label className="form-label mb-1 text-purple fw-bold ">
             Wallet address
           </label>
           <input
+            {...register("wallet", { required: "Please Enter Wallet Address" })}
             type="text"
             className="d-block w-100 border p-2 rounded-1 input-outline-none"
             placeholder="Your Wallet Address..."
           />
         </div>
+        {errors.wallet && (
+          <p className="text-danger">{errors.wallet?.message}</p>
+        )}
         <div className="mb-3 mt-2">
           <label className="form-label mb-1 text-purple fw-bold ">
             Request Type
@@ -48,9 +73,14 @@ const Wallet = () => {
           </div>
         </div>
         <div className="my-3">
-          <ReCAPTCHA sitekey={siteKey} onChange={onChange} />
+          <ReCAPTCHA ref={captchaRef} sitekey={siteKey} onChange={onChange} />
         </div>
-        <button className="bg-purple border-0 py-1 px-3 text-white rounded-1">
+        <button
+          className={`bg-purple border-0 py-1 px-3 text-white rounded-1 ${
+            reCaptchaValue ? "disable" : ""
+          }`}
+          disabled={reCaptchaValue}
+        >
           Send Request
         </button>
       </form>

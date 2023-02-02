@@ -5,10 +5,13 @@ export const  AuthContext=createContext()
 
 const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(false)
-	
+	const [pageLoad, setPageLoad] = useState(true);
+
+
 	if (user) {
 		localStorage.setItem("user",JSON.stringify(user))
 	}
+	
 
 	useEffect(() => {
 		if (localStorage.getItem("user")) {
@@ -17,7 +20,7 @@ const AuthProvider = ({ children }) => {
 		}
 	},[])
 	
-	const userInfo = {user, setUser };
+	const userInfo = { user, setUser, pageLoad, setPageLoad };
 	return (
 		<AuthContext.Provider value={userInfo}>
 			{children}

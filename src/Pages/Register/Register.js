@@ -2,8 +2,8 @@ import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { FaFacebook, FaGoogle, FaInstagram } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaGithub, FaGoogle, FaInstagram } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../../client";
 
 const Register = () => {
@@ -14,6 +14,9 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
+  // handle email and password singup
   const handleEmailPasswordSingUp = async (fromvalue) => {
     try {
       const { data, error } = await supabase.auth.signUp({
@@ -31,16 +34,53 @@ const Register = () => {
         role: "user",
       };
       console.log(data);
-      axios.post("http://localhost:5000/user", user).then((res) => {
-        if (res.data.acknowledged) {
-          if (res.data.message === "Your account was created.") {
-            toast.error("Your account was created.");
-          } else {
-            reset();
-            toast.success("Check your email for varification link!");
+      axios
+        .post("https://faucets-task-server.vercel.app/user", user)
+        .then((res) => {
+          if (res.data.acknowledged) {
+            if (res.data.message === "Your account was created.") {
+              toast.error("Your account was created.");
+            } else {
+              reset();
+              toast.success("Check your email for varification link!");
+            }
           }
-        }
+        });
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+
+  // handle google login
+  const googleLogin = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
       });
+      console.log(data);
+      if (data) {
+        localStorage.setItem("user1", JSON.stringify(data?.user));
+        console.log(data);
+      } else {
+        toast.error(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // handle github login
+  const gitHubLogin = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "github",
+      });
+      if (error) {
+        toast.error(error);
+      }
+      console.log(data);
+      toast.success("LogIn Successfull!");
+      navigate("/");
     } catch (error) {
       toast.error(error);
     }
@@ -113,8 +153,8 @@ const Register = () => {
         </div>
         <p className="text-center fw-bold">Or</p>
         <div className="col-4 col-sm-3 mx-auto d-flex justify-content-around">
-          <FaGoogle className="fs-5 cursor-pointer" />
-          <FaFacebook className="fs-5 cursor-pointer" />
+          <FaGoogle onClick={googleLogin} className="fs-5 cursor-pointer" />
+          <FaGithub onClick={gitHubLogin} className="fs-5 cursor-pointer" />
           <FaInstagram className="fs-5 cursor-pointer" />
         </div>
       </div>
